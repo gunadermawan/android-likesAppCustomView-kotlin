@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">likesApp</string>
+    <string name="btn_like">like</string>
+    <string name="btn_dislike">dislike</string>
+    <string name="iv_of_content">image of content</string>
 </resources>
