@@ -1,9 +1,6 @@
 package com.gunder.likesapp
 
-import android.graphics.Bitmap
-import android.graphics.Canvas
-import android.graphics.Paint
-import android.graphics.RectF
+import android.graphics.*
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
@@ -23,15 +20,38 @@ class MainActivity : AppCompatActivity() {
     private val top = 250F
     private val bottom = mBitmap.height.toFloat() - 50F
 
+    //    message
+    private val message = "do you like to play?"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.ivContent.setImageBitmap(mBitmap)
-        showFace()
-        showEyes()
-        showMouth(true)
-        actionBar?.hide()
+        showText()
+        binding.btnLike.setOnClickListener {
+            showFace()
+            showEyes()
+            showMouth(true)
+        }
+        binding.btnDislike.setOnClickListener {
+            showFace()
+            showEyes()
+            showMouth(false)
+        }
+        supportActionBar?.hide()
+    }
+
+    private fun showText() {
+        val mPaintText = Paint(Paint.FAKE_BOLD_TEXT_FLAG).apply {
+            textSize = 50F
+            color = ResourcesCompat.getColor(resources, R.color.black, null)
+        }
+        val mBounds = Rect()
+        mPaintText.getTextBounds(message, 0, message.length, mBounds)
+        val x: Float = halfOfWidth - mBounds.centerX()
+        val y = 50F
+        mCanvas.drawText(message, x, y, mPaintText)
     }
 
     private fun showMouth(isHappy: Boolean) {
